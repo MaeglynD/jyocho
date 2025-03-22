@@ -1,0 +1,162 @@
+<html>
+  <head>
+    <style>
+      html {
+        background: rgba(0, 0, 0, 0.96);
+      }
+      body {
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.1s;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      .album-selector-container {
+        max-height: 1000px;
+        height: 80%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .video-container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: 0.5s;
+        z-index: -1;
+      }
+
+      .playing .video-container {
+        opacity: 1;
+      }
+
+      video {
+        width: 100%;
+        height: 100%;
+        filter: blur(30px);
+        object-fit: cover;
+        transition: 0.5s;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .playing video {
+        opacity: 0.4;
+      }
+
+      .fft-visual {
+        width: 55%;
+        height: 80%;
+        position: absolute;
+        left: 0;
+        mask-image: linear-gradient(90deg, transparent 0, #fff 20%, #fff 90%, transparent),
+          linear-gradient(180deg, transparent 0, #fff 20%, #fff 90%, transparent),
+          linear-gradient(270deg, transparent 0, #fff 20%, #fff 90%, transparent),
+          linear-gradient(0deg, transparent 0, #fff 20%, #fff 90%, transparent);
+        mask-composite: intersect;
+      }
+
+      .album-selector {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-left: auto;
+        margin-right: 15%;
+        position: relative;
+        background: rgba(255, 255, 255, 0.05);
+        max-width: 700px;
+        width: 30vw;
+      }
+
+      .album {
+        cursor: pointer;
+      }
+
+      .album img {
+        width: 100%;
+        mix-blend-mode: overlay;
+        opacity: 0.9;
+      }
+
+      .album.active img {
+        mix-blend-mode: normal;
+        opacity: 1;
+      }
+
+      .album img:hover {
+        opacity: 1;
+      }
+
+      .initial .album:not(.active) img {
+        opacity: 0.9;
+        mix-blend-mode: normal;
+      }
+
+      .playing .album:not(.active) img {
+        opacity: 0.5;
+      }
+
+      .logo {
+        position: absolute;
+        top: 13%;
+        mix-blend-mode: overlay;
+        width: 18%;
+        max-width: 300px;
+      }
+
+      @media (width < 1000px) {
+        body {
+          padding: 30px;
+        }
+        .fft-visual {
+          width: 100%;
+          pointer-events: none;
+          opacity: 1;
+        }
+        .album-selector {
+          max-width: 600px;
+          margin-right: unset;
+          margin: auto;
+          margin-top: auto;
+          width: 100%;
+        }
+        .playing .album-selector {
+          opacity: 0.2;
+        }
+      }
+
+      .dont-sue-me {
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+        color: white;
+        font-family: system-ui, math;
+        opacity: 0.05;
+        transition: 0.2s;
+      }
+
+      .dont-sue-me:hover {
+        opacity: 0.5;
+      }
+    </style>
+    <script type="module" crossorigin src="/jyocho/assets/index-NNLbU7ws.js"></script>
+  </head>
+  <body class="initial">
+    <img src="/jyocho/assets/logo-Cml-9qIc.png" class="logo" />
+    <div class="video-container"></div>
+    <div class="fft-visual"></div>
+    <div class="album-selector"></div>
+    <div class="dont-sue-me">{This is a fan made website for jyocho}</div>
+  </body>
+</html>

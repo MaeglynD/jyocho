@@ -192,6 +192,10 @@ function albumClick(albumIdx) {
 
   albums[albumIdx].classList.toggle("active");
 
+  if (listener.context.state === "suspended") {
+    listener.context.resume();
+  }
+
   if (state === "playing") {
     setState("fadeout");
 
@@ -221,50 +225,49 @@ function replaceVideo(albumIdx) {
   sound = new Audio(listener);
   analyser = new AudioAnalyser(sound, fftSize);
 
-  if (bars) {
-    bars.forEach((bar) => {
-      if (bar.material.uniforms.value) {
-        bar.material.uniforms.value.dispose();
-      }
-
-      scene.remove(bar);
-    });
-  }
-
   video = document.createElement("video");
   video.style["object-fit"] = "cover";
   video.src = `./${band}/${albumIdx}/output.mp4`;
   video.crossOrigin = "anonymous";
   video.loop = true;
+  video.muted = true;
+  video.preload = "auto";
+  videoContainer.append(video);
 
-  video.oncanplay = () => {
-    videoAspectRatio = video.videoWidth / video.videoHeight;
-    duration = video.duration;
-    videoContainer.append(video);
+  const initializeAudioVideo = async () => {
+    try {
+      await video.play();
+      video.muted = false;
 
-    const videoTexture = new VideoTexture(video);
-    videoTexture.colorSpace = SRGBColorSpace;
+      const audioSource = listener.context.createMediaElementSource(video);
+      sound.setNodeSource(audioSource);
+      sound.setVolume(0.2);
 
-    bars = Array.from({ length: fftSize / 2 }, (_, i) => {
-      const bar = new Mesh(new PlaneGeometry(barWidth, videoWidth / videoAspectRatio), barShaderMaterial.clone());
+      videoAspectRatio = video.videoWidth / video.videoHeight;
+      duration = video.duration;
 
-      bar.material.uniforms.videoTexture.value = videoTexture;
+      const videoTexture = new VideoTexture(video);
+      videoTexture.colorSpace = SRGBColorSpace;
 
-      scene.add(bar);
-      bar.scale.y = 0.01;
-      bar.position.set((i - fftSize / 2 / 2 + 0.5) * barWidth, 0, 0);
+      bars = Array.from({ length: fftSize / 2 }, (_, i) => {
+        const bar = new Mesh(new PlaneGeometry(barWidth, videoWidth / videoAspectRatio), barShaderMaterial.clone());
+        bar.material.uniforms.videoTexture.value = videoTexture;
 
-      return bar;
-    });
+        scene.add(bar);
 
-    video.play();
-    sound.setNodeSource(listener.context.createMediaElementSource(video));
-    sound.setVolume(0.2);
+        bar.scale.y = 0.01;
+        bar.position.set((i - fftSize / 2 / 2 + 0.5) * barWidth, 0, 0);
 
-    setTimeout(() => {
+        return bar;
+      });
+
       setState("playing");
-    }, 100);
+    } catch (err) {
+      console.error("ERROR. ITS BROKEN. REALLY BROKEN. NOT GOOD. BURN HARD DRIVE.", err);
+    }
   };
+
+  video.addEventListener("loadedmetadata", initializeAudioVideo);
 }
 
 function resize() {

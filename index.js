@@ -38,8 +38,8 @@ var w,
   sound;
 var band = "jyocho";
 var state = "initial";
-var fftSize = 512;
-// var fftSize = 1024;
+// var fftSize = 512;
+var fftSize = 1024;
 var videoWidth = 4;
 var barWidth = videoWidth / fftSize;
 var barCount = fftSize / 2;

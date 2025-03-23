@@ -233,7 +233,7 @@ function replaceVideo(albumIdx) {
 
   video = document.createElement("video");
   video.style["object-fit"] = "cover";
-  video.src = `./${band}/${albumIdx}/vid.mp4`;
+  video.src = `./${band}/${albumIdx}/output.mp4`;
   video.crossOrigin = "anonymous";
   video.loop = true;
 

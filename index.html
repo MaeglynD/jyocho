@@ -54,7 +54,7 @@
       }
 
       .playing video {
-        opacity: 0.4;
+        opacity: 0.45;
       }
 
       .fft-visual {
@@ -116,6 +116,15 @@
         max-width: 300px;
       }
 
+      @media (height < 900px) {
+        .logo {
+          max-width: 200px;
+          top: 10%;
+        }
+        .album-selector {
+          max-width: 500px;
+        }
+      }
       @media (width < 1000px) {
         body {
           padding: 30px;
@@ -160,7 +169,7 @@
     <div class="video-container"></div>
     <div class="fft-visual"></div>
     <div class="album-selector"></div>
-    <div class="dont-sue-me">{This is a fan made website for jyocho}</div>
+    <div class="dont-sue-me">{This is a fan made website}</div>
     <script type="module" src="./index.js"></script>
   </body>
 </html>

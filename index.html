@@ -54,7 +54,7 @@
       }
 
       .playing video {
-        opacity: 0.4;
+        opacity: 0.45;
       }
 
       .fft-visual {
@@ -116,6 +116,15 @@
         max-width: 300px;
       }
 
+      @media (height < 900px) {
+        .logo {
+          max-width: 200px;
+          top: 10%;
+        }
+        .album-selector {
+          max-width: 500px;
+        }
+      }
       @media (width < 1000px) {
         body {
           padding: 30px;
@@ -154,13 +163,13 @@
         opacity: 0.5;
       }
     </style>
-    <script type="module" crossorigin src="/jyocho/assets/index-CmOhOWzq.js"></script>
+    <script type="module" crossorigin src="/jyocho/assets/index-C6G5h67s.js"></script>
   </head>
   <body class="initial">
     <img src="/jyocho/assets/logo-Cml-9qIc.png" class="logo" />
     <div class="video-container"></div>
     <div class="fft-visual"></div>
     <div class="album-selector"></div>
-    <div class="dont-sue-me">{This is a fan made website for jyocho}</div>
+    <div class="dont-sue-me">{This is a fan made website}</div>
   </body>
 </html>

@@ -132,7 +132,7 @@ function setupScene() {
         bars[i].material.uniforms.clipEnd.value.set((i + 1) / barCount, 0.5 + heightPercent / 2);
       }
 
-      document.body.style.background = `rgba(0,0,0,${Math.min(0.6, 0.5 + analyser.getAverageFrequency() / fftSize)})`;
+      // document.body.style.background = `rgba(0,0,0,${Math.min(0.85, 0.4 + analyser.getAverageFrequency() / fftSize)})`;
     }
 
     if (state === "fadeout") {

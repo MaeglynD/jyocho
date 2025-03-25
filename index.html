@@ -11,6 +11,7 @@
         justify-content: center;
         align-items: center;
         transition: 0.1s;
+        overflow: hidden;
       }
 
       html,
@@ -54,7 +55,7 @@
       }
 
       .playing video {
-        opacity: 0.45;
+        opacity: 0.55;
       }
 
       .fft-visual {
@@ -71,17 +72,33 @@
 
       .album-selector {
         display: grid;
+        gap: 28px;
         grid-template-columns: 1fr 1fr;
-        margin-left: auto;
-        margin-right: 15%;
+        margin-left: 45%;
         position: relative;
-        background: rgba(255, 255, 255, 0.05);
-        max-width: 700px;
+        max-width: 500px;
         width: 30vw;
       }
 
       .album {
         cursor: pointer;
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .album::after {
+        content: "";
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 16px;
+        box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 0px 30px 2px,
+          rgba(255, 255, 255, 0.15) 0px 1.5px 0px 0px inset, rgba(0, 0, 0, 0.05) 0px -1px 0px 0px inset,
+          rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset, rgba(255, 255, 255, 0.06) 0px 0px 30px 0px inset;
       }
 
       .album img {
@@ -105,7 +122,7 @@
       }
 
       .playing .album:not(.active) img {
-        opacity: 0.5;
+        opacity: 0.8;
       }
 
       .logo {
@@ -114,9 +131,15 @@
         mix-blend-mode: overlay;
         width: 18%;
         max-width: 300px;
+        transition: 0.2s;
       }
 
-      @media (height < 900px) {
+      .initial .logo {
+        opacity: 0.2;
+        mix-blend-mode: normal;
+      }
+
+      @media (height < 950px) {
         .logo {
           max-width: 200px;
           top: 10%;
@@ -125,7 +148,8 @@
           max-width: 500px;
         }
       }
-      @media (width < 1000px) {
+
+      @media (width < 1100px) {
         body {
           padding: 30px;
         }
@@ -142,6 +166,10 @@
           margin: auto;
           margin-top: auto;
           width: 100%;
+          bottom: 3%;
+          position: absolute;
+          grid-template: 1fr / 1fr 1fr 1fr 1fr;
+          max-width: 90%;
         }
 
         .playing .album-selector {

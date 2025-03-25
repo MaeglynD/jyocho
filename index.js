@@ -38,7 +38,6 @@ var w,
   sound;
 var band = "jyocho";
 var state = "initial";
-// var fftSize = 512;
 var fftSize = 1024;
 var videoWidth = 4;
 var barWidth = videoWidth / fftSize;
@@ -202,7 +201,7 @@ function albumClick(albumIdx) {
 
     setTimeout(() => {
       replaceVideo(albumIdx);
-    }, 1000);
+    }, 1200);
   }
 
   if (state === "initial") {
@@ -242,7 +241,7 @@ function replaceVideo(albumIdx) {
 
       const audioSource = listener.context.createMediaElementSource(video);
       sound.setNodeSource(audioSource);
-      sound.setVolume(0.2);
+      sound.setVolume(0.3);
 
       videoAspectRatio = video.videoWidth / video.videoHeight;
       duration = video.duration;

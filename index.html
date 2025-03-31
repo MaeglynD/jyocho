@@ -140,15 +140,15 @@
       .logo {
         position: absolute;
         top: 13%;
-        mix-blend-mode: overlay;
         width: 18%;
         max-width: 300px;
-        transition: 0.2s;
+        transition: 0.3s;
+        opacity: 0.2;
       }
 
-      .initial .logo {
-        opacity: 0.2;
-        mix-blend-mode: normal;
+      .fadeout .logo {
+        opacity: 0.9;
+        transform: scale(1.03);
       }
 
       @media (height < 950px) {

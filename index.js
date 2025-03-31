@@ -38,11 +38,13 @@ var w,
   sound;
 var band = "jyocho";
 var state = "initial";
-var fftSize = 1024;
+// var fftSize = 1024;
+var fftSize = 512;
 var videoWidth = 4;
 var barWidth = videoWidth / fftSize;
 var barCount = fftSize / 2;
 var duration = 1;
+var progress;
 
 var barShaderMaterial = new ShaderMaterial({
   uniforms: {
@@ -133,15 +135,18 @@ function setupScene() {
       }
 
       // document.body.style.background = `rgba(0,0,0,${Math.min(0.85, 0.4 + analyser.getAverageFrequency() / fftSize)})`;
+      progress.style.width = `${(video.currentTime / video.duration) * 100}%`;
     }
 
     if (state === "fadeout") {
       for (let i = 0; i < fftSize / 2; i++) {
-        bars[i].scale.y = Math.max(bars[i].scale.y - 0.01, 0);
+        bars[i].scale.y = Math.max(bars[i].scale.y - 0.04, 0);
         bars[i].material.uniforms.clipStart.value.set(i / barCount, 0.5 - bars[i].scale.y / 2);
         bars[i].material.uniforms.clipEnd.value.set((i + 1) / barCount, 0.5 + bars[i].scale.y / 2);
       }
+
       sound.setVolume(Math.max(0, sound.getVolume() - 0.01));
+      progress.style.width = `${Math.max(0, progress.clientWidth - 5)}px`;
     }
 
     controls.update();
@@ -155,6 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
   fftVisualContainer = document.querySelector(".fft-visual");
   albumSelector = document.querySelector(".album-selector");
   videoContainer = document.querySelector(".video-container");
+  progress = document.querySelector(".progress");
   albums = Array.from({ length: 4 }, (_, i) => i);
 
   albumSelector.insertAdjacentHTML(
@@ -201,7 +207,7 @@ function albumClick(albumIdx) {
 
     setTimeout(() => {
       replaceVideo(albumIdx);
-    }, 1200);
+    }, 700);
   }
 
   if (state === "initial") {
